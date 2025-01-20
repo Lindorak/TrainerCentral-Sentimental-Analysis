@@ -1,21 +1,27 @@
 // src/sentimentAnalysis.ts
-import { OpenAI } from "langchain/llms/openai"; 
-import { LLMChain, PromptTemplate } from "langchain/chains";
 
-// Example: Summarizing numeric user data into a short sentiment rating
-export async function analyzeSentiment(userData: any) {
-  // Configure your LLM (OpenAI API as an example)
+import { OpenAI } from "langchain/llms/openai";
+import { PromptTemplate, LLMChain } from "langchain/chains";
+
+/**
+ * Analyze user engagement metrics with LangChain. 
+ * The result is a text string containing the LLM's output.
+ */
+export async function analyzeSentiment(userData: Record<string, any>, openAiKey: string): Promise<string> {
+  // Initialize the LLM with your API key
   const llm = new OpenAI({
-    openAIApiKey: "YOUR_OPENAI_API_KEY",
+    openAIApiKey: openAiKey,
     temperature: 0.3,
   });
 
-  // Create a prompt template; you can refine these instructions
+  // Build a prompt to interpret numeric/categorical user data for sentiment
   const template = `
-    You are a service that determines user sentiment based on numeric and categorical data:
+    You are an AI analyzing user engagement data. 
+    Data (JSON):
     {userData}
 
-    Return a sentiment rating (between -1 and +1) and a short summary.
+    Return a sentiment rating between -1 (very negative) and +1 (very positive),
+    along with a short reasoning.
   `;
 
   const prompt = new PromptTemplate({
@@ -23,11 +29,11 @@ export async function analyzeSentiment(userData: any) {
     inputVariables: ["userData"],
   });
 
-  // Create and run the chain
   const chain = new LLMChain({ llm, prompt });
   const response = await chain.call({
     userData: JSON.stringify(userData, null, 2),
   });
 
-  return response.text;
+  // response.text contains the raw LLM output
+  return response.text.trim();
 }
