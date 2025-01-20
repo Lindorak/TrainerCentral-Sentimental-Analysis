@@ -5,7 +5,7 @@ export async function fetchUserData(userId: string, authToken: string) {
     headers: { Authorization: `Bearer ${authToken}` },
   });
   if (!response.ok) {
-    throw new Error(`Failed to fetch user data: ${response.status} ${response.statusText}`);
+    throw new Error(`Failed to fetch user data: ${response.status} - ${response.statusText}`);
   }
   return response.json();
 }
@@ -15,9 +15,9 @@ export async function fetchCourseEnrollments(userId: string, authToken: string) 
     headers: { Authorization: `Bearer ${authToken}` },
   });
   if (!response.ok) {
-    throw new Error(`Failed to fetch course enrollments: ${response.status} ${response.statusText}`);
+    throw new Error(`Failed to fetch course enrollments: ${response.status} - ${response.statusText}`);
   }
   return response.json();
 }
 
-// ... add further utility functions for lessons, tests, etc.
+// Add more methods (for tests, lessons, session data, etc.) as needed.
