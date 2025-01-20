@@ -1,9 +1,6 @@
 name = "my-sentiment-service"
-main = "dist/index.js"
+main = "src/index.ts"
 compatibility_date = "2025-01-01"
-
-# Use environment variables for your secrets.
-# You can store them here (less secure) or via Wrangler secrets (recommended).
 
 [vars]
 TRAINER_CENTRAL_TOKEN = "YOUR_TRAINER_CENTRAL_API_TOKEN"
