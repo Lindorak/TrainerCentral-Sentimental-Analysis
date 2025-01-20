@@ -1,1 +1,19 @@
-
+{
+  "name": "my-sentiment-service",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "wrangler dev",
+    "build": "wrangler build",
+    "publish": "wrangler publish"
+  },
+  "dependencies": {
+    "langchain": "^0.0.79",
+    "openai": "^3.2.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230822.2",
+    "typescript": "^5.2.2",
+    "wrangler": "^3.3.0"
+  }
+}
